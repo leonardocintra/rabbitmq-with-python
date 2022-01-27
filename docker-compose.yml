@@ -1,0 +1,37 @@
+version: '3.5'
+
+services:
+  rabbitmq_dev:
+    image: rabbitmq:3.9-management
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: senhadigital
+      RABBITMQ_DEFAULT_PASS: senhadigital
+      RABBITMQ_DEFAULT_VHOST: senhadigital-rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - 'rabbitmq_data:/data'
+  postgres:
+    container_name: senhadigital_container
+    image: postgres
+    environment:
+      POSTGRES_USER: senhadigital
+      POSTGRES_PASSWORD: senhadigital
+      PGDATA: /data/senhadigital
+    volumes:
+      - postgres:/data/senhadigital
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  postgres:
+  rabbitmq_data:
