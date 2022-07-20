@@ -20,7 +20,7 @@ python3 receive.py
 
 Term2
 ```
-python3 send/.py
+python3 send.py
 ```
 
 Boa brincadeira!
